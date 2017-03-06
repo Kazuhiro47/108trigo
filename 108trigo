@@ -1,0 +1,8 @@
+#!/usr/bin/python3
+# coding=UTF-8
+
+from sys import argv
+from man_help import *
+
+if (len(argv) == 2 and argv[1] == "-h"):
+    man()
