@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 # coding=UTF-8
 
+from sys import stdout
+
 def man():
     help_file = open("man", 'r')
-    print(help_file.read())
+    stdout.write(help_file.read())

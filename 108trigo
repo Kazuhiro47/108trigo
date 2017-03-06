@@ -3,6 +3,27 @@
 
 from sys import argv
 from man_help import *
+from matrix import *
 
-if (len(argv) == 2 and argv[1] == "-h"):
-    man()
+def main(argv):
+
+	n = 42
+
+	if len(argv) == 2 and argv[1] == "-h":
+		man()
+
+	mat1 = create_matrix(4, 3, 0)
+	mat2 = create_matrix(3, 4, 0)
+	n = 1
+	for i in range(len(mat1)):
+		for j in range(len(mat1[i])):
+			mat1[i][j] = n
+			n += 1
+	n = 1
+	for i in range(len(mat2)):
+		for j in range(len(mat2[i])):
+			mat2[i][j] = n
+			n += 1
+	print_matrix(multiply_matrix(mat1, mat2))
+
+main(argv)
