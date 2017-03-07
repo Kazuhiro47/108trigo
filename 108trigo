@@ -4,26 +4,29 @@
 from sys import argv
 from man_help import *
 from matrix import *
+from math import pow
+
+def retrieve_argument(argv):
+	i = 2
+	str = []
+	while (i < len(argv)):
+		str.append(argv[i])
+		i += 1
+
+	str = ''.join(str)
+	return (str)
 
 def main(argv):
 
-	n = 42
+	arguments = retrieve_argument(argv)
+	matrix = create_matrix_with_str_arg(3, 3, arguments)
+	print_matrix(matrix)
 
-	if len(argv) == 2 and argv[1] == "-h":
-		man()
+	for n in range(42):
+		result = divide_matrix_by_one_number(factorielle(2 * n), pow_matrix(matrix, 2 * n))
+		result = multiply_matrix_by_one_number(pow(-1, n), result)
+		result = add_matrix(result, pow_matrix(matrix, 2 * n + 1))
 
-	mat1 = create_matrix(4, 3, 0)
-	mat2 = create_matrix(3, 4, 0)
-	n = 1
-	for i in range(len(mat1)):
-		for j in range(len(mat1[i])):
-			mat1[i][j] = n
-			n += 1
-	n = 1
-	for i in range(len(mat2)):
-		for j in range(len(mat2[i])):
-			mat2[i][j] = n
-			n += 1
-	print_matrix(multiply_matrix(mat1, mat2))
+	print_matrix(result)
 
 main(argv)
