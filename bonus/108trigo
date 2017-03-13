@@ -4,11 +4,12 @@
 from math import sqrt, modf, isnan
 from sys import argv
 
-from help.man_help import *
-from matrix_fct.matrix import *
-from src.cosinus import *
-from src.exponential import *
-from src.sinus import *
+from bonus.help.man_help import *
+from bonus.matrix_fct.matrix import *
+from bonus.src.cosinus import *
+from bonus.src.exponential import *
+from bonus.src.sinus import *
+from bonus.src.normal_calc import *
 
 def errors_check(argv):
 	if (len(argv) == 1):
@@ -52,6 +53,8 @@ def main(argv, matrix_len):
 		["SIN", sin_calculus(matrix)],
 		["COSH", cosh_calculus(matrix)],
 		["SINH", sinh_calculus(matrix)],
+		["INVERT1", inverted_fct_1(matrix)],
+		["INVERT2", inverted_fct_2(matrix)]
 	]
 
 	for i in range(len(calcs)):
