@@ -36,6 +36,9 @@ def retrieve_argument(argv):
 	return (str)
 
 def cos_calculus(m):
+	tmp = divide_matrix_by_one_number(factorielle(2), pow_matrix(m, 2))
+	res = substract_matrix(identity_matrix(len(m)), tmp)
+	#print_matrix(res)
 	for n in range(42):
 		result = divide_matrix_by_one_number(factorielle(2 * n), pow_matrix(m, (2 * n)))
 		result = multiply_matrix_by_one_number(pow(-1, n), result)
@@ -46,7 +49,7 @@ def main(argv, matrix_len):
 
 	arguments = retrieve_argument(argv)
 	matrix = create_matrix_with_str_arg(int(matrix_len), int(matrix_len), arguments)
-	print_matrix(matrix)
+	#print_matrix(matrix)
 
 	print_matrix(cos_calculus(matrix))
 

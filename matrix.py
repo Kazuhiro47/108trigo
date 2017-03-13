@@ -20,6 +20,12 @@ def create_matrix_with_str_arg(y, x, coefficients):
 def create_matrix(y, x, filler):
     return [[filler] * x for _ in range(y)]
 
+def identity_matrix(length):
+	m = create_matrix(length, length, 0)
+	for i in range(len(m)):
+		m[i][i] = 1
+	return (m)
+
 def print_matrix(mat):
 	for i in range(len(mat)):
 		for j in range(len(mat[i])):
@@ -46,6 +52,13 @@ def add_matrix(mat1, mat2):
 	for i in range(len(mat1)):
 		for j in range(len(mat1[0])):
 			matrix[i][j] = mat1[i][j] + mat2[i][j]
+	return (matrix)
+
+def substract_matrix(mat1, mat2):
+	matrix = create_matrix(len(mat1), len(mat1[0]), 0)
+	for i in range(len(mat1)):
+		for j in range(len(mat1[0])):
+			matrix[i][j] = mat1[i][j] - mat2[i][j]
 	return (matrix)
 
 def multiply_matrix_by_one_number(number, matrix):
