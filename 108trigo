@@ -9,6 +9,9 @@ from math import pow, sqrt, modf, isnan
 def errors_check(argv):
 	if (len(argv) == 1):
 		exit(84)
+	if (len(argv) == 2 and argv[1] == "-h"):
+		man()
+		exit(0)
 	if (modf(sqrt(len(argv) - 2))[0] != 0):
 		exit(84)
 	try:
@@ -39,9 +42,21 @@ def cos_calculus(m):
 	tmp = divide_matrix_by_one_number(factorielle(2), pow_matrix(m, 2))
 	res = substract_matrix(identity_matrix(len(m)), tmp)
 	#print_matrix(res)
+	n = 1
+	while (n <= 42):
+		tmp = divide_matrix_by_one_number(factorielle(2 * (n + 1)),
+										  pow_matrix(m, 2 * (n + 1)))
+		if (n % 2 == 0):
+			res = add_matrix(res, tmp)
+		else:
+			res = substract_matrix(res, tmp)
+		n += 1
+	return (res)
+
+def cos_calculus_1(m):
 	for n in range(42):
 		result = divide_matrix_by_one_number(factorielle(2 * n), pow_matrix(m, (2 * n)))
-		result = multiply_matrix_by_one_number(pow(-1, n), result)
+		result = multiply_matrix(pow_matrix(identity_matrix(len(m)), n), result)
 		result = add_matrix(result, pow_matrix(m, ((2 * n) + 1)))
 	return (result)
 
