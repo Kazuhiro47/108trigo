@@ -1,4 +1,4 @@
-from matrix_fct.matrix import *
+from bonus.matrix_fct.matrix import *
 
 # 1 / (1 - x)
 def inverted_fct_1(m):

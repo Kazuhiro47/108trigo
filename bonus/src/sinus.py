@@ -1,4 +1,4 @@
-from matrix_fct.matrix import *
+from bonus.matrix_fct.matrix import *
 
 def sin_calculus(m):
 	tmp = divide_matrix_by_one_number(factorielle(3), pow_matrix(m, 3))

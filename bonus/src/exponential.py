@@ -1,4 +1,4 @@
-from matrix_fct.matrix import *
+from bonus.matrix_fct.matrix import *
 
 def exp_calculus(m):
 	res = add_matrix(identity_matrix(len(m)), m)

@@ -10,6 +10,7 @@ from bonus.src.cosinus import *
 from bonus.src.exponential import *
 from bonus.src.sinus import *
 from bonus.src.normal_calc import *
+from bonus.src.logarithm import *
 
 def errors_check(argv):
 	if (len(argv) == 1):
@@ -54,7 +55,9 @@ def main(argv, matrix_len):
 		["COSH", cosh_calculus(matrix)],
 		["SINH", sinh_calculus(matrix)],
 		["INVERT1", inverted_fct_1(matrix)],
-		["INVERT2", inverted_fct_2(matrix)]
+		["INVERT2", inverted_fct_2(matrix)],
+		["LOG1", log_1(matrix)],
+		["LOG2", log_2(matrix)]
 	]
 
 	for i in range(len(calcs)):
