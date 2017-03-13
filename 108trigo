@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 # coding=UTF-8
 
+from math import sqrt, modf, isnan
 from sys import argv
-from man_help import *
-from matrix import *
-from math import pow, sqrt, modf, isnan
+
+from help.man_help import *
+from matrix_fct.matrix import *
+
 
 def errors_check(argv):
 	if (len(argv) == 1):
@@ -38,25 +40,21 @@ def retrieve_argument(argv):
 	str = ''.join(str)
 	return (str)
 
-def cos_calculus(m):
-	tmp = divide_matrix_by_one_number(factorielle(2), pow_matrix(m, 2))
-	res = substract_matrix(identity_matrix(len(m)), tmp)
-	n = 2
-	while (n <= 42):
-		tmp = divide_matrix_by_one_number(factorielle(2 * n), pow_matrix(m, 2 * n))
-		if (n % 2 == 0):
-			res = add_matrix(res, tmp)
-		else:
-			res = substract_matrix(res, tmp)
-		n += 1
-	return (res)
-
 def main(argv, matrix_len):
 
 	arguments = retrieve_argument(argv)
 	matrix = create_matrix_with_str_arg(int(matrix_len), int(matrix_len), arguments)
 
-	print_matrix(cos_calculus(matrix))
+	if (argv[1] == "COS"):
+		print_matrix(cos_calculus(matrix))
+	if (argv[1] == "EXP"):
+		print_matrix(exp_calculus(matrix))
+	if (argv[1] == "SIN"):
+		print_matrix(sin_calculus(matrix))
+	if (argv[1] == "COSH"):
+		print_matrix(cosh_calculus(matrix))
+	if (argv[1] == "SINH"):
+		print_matrix(sinh_calculus(matrix))
 
 matrix_len = errors_check(argv)
 main(argv, matrix_len)
