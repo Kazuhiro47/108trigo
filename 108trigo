@@ -4,7 +4,14 @@
 from sys import argv
 from man_help import *
 from matrix import *
-from math import pow
+from math import pow, sqrt, modf
+
+def errors_check(argv):
+	if (len(argv) == 1):
+		exit(84)
+	if (modf(sqrt(len(argv) - 2))[0] != 0):
+		exit(84)
+	return (sqrt(len(argv) - 2))
 
 def retrieve_argument(argv):
 	i = 2
@@ -16,10 +23,10 @@ def retrieve_argument(argv):
 	str = ''.join(str)
 	return (str)
 
-def main(argv):
+def main(argv, matrix_len):
 
 	arguments = retrieve_argument(argv)
-	matrix = create_matrix_with_str_arg(3, 3, arguments)
+	matrix = create_matrix_with_str_arg(int(matrix_len), int(matrix_len), arguments)
 	print_matrix(matrix)
 
 	for n in range(42):
@@ -29,4 +36,5 @@ def main(argv):
 
 	print_matrix(result)
 
-main(argv)
+matrix_len = errors_check(argv)
+main(argv, matrix_len)
