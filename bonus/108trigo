@@ -3,14 +3,16 @@
 
 from math import sqrt, modf, isnan
 from sys import argv
+import sys
+from PyQt4 import QtGui, QtCore
 
-from bonus.help.man_help import *
-from bonus.matrix_fct.matrix import *
-from bonus.src.cosinus import *
-from bonus.src.exponential import *
-from bonus.src.sinus import *
-from bonus.src.normal_calc import *
-from bonus.src.logarithm import *
+from help.man_help import *
+from matrix_fct.matrix import *
+from src.cosinus import *
+from src.exponential import *
+from src.sinus import *
+from src.normal_calc import *
+from src.logarithm import *
 
 def errors_check(argv):
 	if (len(argv) == 1):
@@ -64,5 +66,26 @@ def main(argv, matrix_len):
 		if (argv[1] == calcs[i][0]):
 			print_matrix(calcs[i][1])
 
-matrix_len = errors_check(argv)
-main(argv, matrix_len)
+class Window(QtGui.QWidget):
+    def __init__(self):
+        QtGui.QWidget.__init__(self)
+        self.cos = QtGui.QPushButton('COS', self)
+        self.exp = QtGui.QPushButton('EXP', self)
+        self.sin = QtGui.QPushButton('SIN', self)
+        self.cos.clicked.connect(self.handleButton)
+        layout = QtGui.QVBoxLayout(self)
+        layout.addWidget(self.cos)
+
+    def handleButton(self):
+        print ('Hello World')
+
+def interface():
+    app = QtGui.QApplication(sys.argv)
+    window = Window()
+    window.resize(300, 300)
+    window.show()
+    sys.exit(app.exec_())
+
+#matrix_len = errors_check(argv)
+#main(argv, matrix_len)
+interface()
