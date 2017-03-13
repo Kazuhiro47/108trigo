@@ -1,4 +1,5 @@
 from sys import stdout, exit
+from precision import precision
 
 def create_matrix_with_str_arg(y, x, coefficients):
 	if (y * x < len(coefficients)):
@@ -30,9 +31,9 @@ def print_matrix(mat):
 	for i in range(len(mat)):
 		for j in range(len(mat[i])):
 			if (j + 1 != len(mat[i])):
-				stdout.write(str(mat[i][j]) + "\t")
+				stdout.write(str(precision(mat[i][j])) + "\t")
 			else:
-				stdout.write(str(mat[i][j]))
+				stdout.write(str(precision(mat[i][j])))
 		stdout.write("\n")
 
 def multiply_matrix(mat1, mat2):
