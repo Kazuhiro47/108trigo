@@ -16,19 +16,22 @@ from src.sinus import *
 from src.normal_calc import *
 from src.logarithm import *
 
-screen_size_x = 540
+screen_size_x = 640
 screen_size_y = 480
 
 def errors_check(argv):
 	if (len(argv) == 1):
+		print("Error: Please put at least one argument")
 		exit(84)
 	if (len(argv) == 2 and argv[1] == "-h"):
 		man()
 		exit(0)
 	if (modf(sqrt(len(argv) - 2))[0] != 0):
+		print("this matrix won't be a squared matrix")
 		exit(84)
 	try:
 		if (float(argv[1]) >= 0 or float(argv[1]) < 0):
+			print("First argument has to be a string")
 			exit(84)
 	except ValueError:
 		check = "ok"
@@ -37,6 +40,7 @@ def errors_check(argv):
 		try:
 			isnan(float(argv[i]))
 		except ValueError:
+			print("Couldn't convert matrix args into float")
 			exit(84)
 		i += 1
 	return (sqrt(len(argv) - 2))
@@ -48,8 +52,9 @@ def retrieve_argument(argument):
 
 def main(operation, argument_matrix):
 
-	matrix_len = errors_check(argv)
 	arguments = retrieve_argument(argument_matrix)
+	print("arguments parsed:", arguments)
+	matrix_len = sqrt(len(arguments))
 	matrix = create_matrix_with_str_arg(int(matrix_len), int(matrix_len), arguments)
 	calcs = [
 		["COS", cos_calculus(matrix)],
@@ -64,8 +69,8 @@ def main(operation, argument_matrix):
 	]
 
 	for i in range(len(calcs)):
-		if (argv[1] == calcs[i][0]):
-			print_matrix(calcs[i][1])
+		if (operation == calcs[i][0]):
+			return(calcs[i][1])
 
 operation = []
 argument_matrix = []
@@ -75,6 +80,13 @@ try:
 except AttributeError:
     def _fromUtf8(s):
         return s
+
+def error_msg():
+	msg = QMessageBox()
+	msg.setIcon(QMessageBox.Warning)
+	msg.setText("Please put arguments in input")
+	msg.setWindowTitle("Warning")
+	msg.exec_()
 
 class Window(QtGui.QWidget):
 	def __init__(self, parent = None):
@@ -96,11 +108,8 @@ class Window(QtGui.QWidget):
 
 		self.le1 = QLineEdit()
 		layout.addRow(self.btn1, self.le1)
-		self.btn2 = QPushButton("Enter an integer")
-		self.btn2.clicked.connect(self.getint)
 
 		self.le2 = QLineEdit()
-		layout.addRow(self.btn2, self.le2)
 		self.setLayout(layout)
 
 		self.operate_btn = QPushButton("Compute")
@@ -109,10 +118,10 @@ class Window(QtGui.QWidget):
 		layout.addWidget(self.operate_btn)
 
 		self.layoutWidget1 = QtGui.QWidget(self)
-		self.layoutWidget1.setGeometry(QtCore.QRect(screen_size_x / 3, screen_size_y / 3, 361, 229))
+		self.layoutWidget1.setGeometry(QtCore.QRect(screen_size_x / 4, screen_size_y / 2.7, 361, 329))
 		self.layoutWidget1.setObjectName(_fromUtf8("layoutWidget1"))
 
-		self.tableView = QtGui.QTableView(self.layoutWidget1)
+		self.tableView = QtGui.QTableWidget(self.layoutWidget1)
 		self.tableView.setObjectName(_fromUtf8("Matrix Result"))
 
 	def get_operation(self):
@@ -120,13 +129,13 @@ class Window(QtGui.QWidget):
 		item, ok = QInputDialog.getItem(self, "Calculus input", "Choose trigo calculus", items, 0, False)
 		if ok and item:
 			self.le.setText(item)
-		argument_matrix.append(item)
+		operation.append(item)
 
 	def get_argument(self):
 		text, ok = QInputDialog.getText(self, 'Matrix input', 'Enter arguments')
 		if ok:
 			self.le1.setText(str(text))
-		operation.append(text)
+		argument_matrix.append(text)
 
 
 	def getint(self):
@@ -136,16 +145,18 @@ class Window(QtGui.QWidget):
 		return num
 
 	def compute(self):
-		print(operation)
-		print(argument_matrix)
-		main(operation[0], argument_matrix[0])
+		if (operation and argument_matrix):
+			print("matrix arg:", operation)
+			print("operation:", argument_matrix)
+			matrix = main(operation[0], argument_matrix[0])
+			self.tableView.setRowCount(len(matrix))
+			self.tableView.setColumnCount(len(matrix[0]))
+			for i, row in enumerate(matrix):
+				for j, val in enumerate(row):
+					self.tableView.setItem(i, j, QtGui.QTableWidgetItem(str(val)))
+		else:
+			error_msg()
 
-	def MostrarMem(self):
-		self.tableView.setRowCount(len(matrix))
-		self.tableView.setColumnCount(len(matrix[0]))
-		for i, row in enumerate(matrix):
-			for j, val in enumerate(row):
-				self.tableView.setItem(i, j, QtGui.QTableWidgetItem(str(val)))
 
 def interface():
 	app = QtGui.QApplication(sys.argv)
