@@ -164,5 +164,5 @@ def interface():
 	window.resize(screen_size_x, screen_size_y)
 	window.show()
 	sys.exit(app.exec_())
-#main(argv, matrix_len)
+
 interface()
