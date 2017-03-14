@@ -4,7 +4,7 @@ from matrix_fct.matrix import *
 def inverted_fct_1(m):
 	res = add_matrix(identity_matrix(len(m)), m)
 	n = 2
-	while (n <= 42):
+	while (n <= 100):
 		res = add_matrix(res, pow_matrix(m, n))
 		n += 1
 	return (res)
@@ -13,7 +13,7 @@ def inverted_fct_1(m):
 def inverted_fct_2(m):
 	res = substract_matrix(identity_matrix(len(m)), m)
 	n = 2
-	while (n <= 42):
+	while (n <= 100):
 		if (n % 2 == 0):
 			res = add_matrix(res, pow_matrix(m, n))
 		else:
