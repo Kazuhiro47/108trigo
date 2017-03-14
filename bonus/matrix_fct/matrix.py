@@ -4,12 +4,7 @@ from precision import precision
 def create_matrix_with_str_arg(y, x, coefficients):
 	if (y * x < len(coefficients)):
 		print("Too much coefficients for a matrix of size "+str(y), str(x)+"\nPlease put at max "+str(x*y)+" arguments.")
-		exit(84)
-	try:
-		str(coefficients)
-	except:
-		print("please enter a string as third parameter")
-		exit(84)
+		return (84)
 	mat = [[0] * x for _ in range(y)]
 	k = 0
 	for i in range(y):

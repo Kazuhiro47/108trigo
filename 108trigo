@@ -38,8 +38,6 @@ def retrieve_argument(argv):
 	while (i < len(argv)):
 		str.append(argv[i])
 		i += 1
-
-	str = ''.join(str)
 	return (str)
 
 def main(argv, matrix_len):
