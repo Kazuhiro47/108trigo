@@ -4,5 +4,5 @@
 from sys import stdout
 
 def man():
-    help_file = open("man", 'r')
+    help_file = open("help/man", 'r')
     stdout.write(help_file.read())
