@@ -10,15 +10,8 @@ from src.cosinus import *
 from src.exponential import *
 from src.sinus import *
 
-calcs = [
-    ["COS", cos_calculus(matrix)],
-    ["EXP", exp_calculus(matrix)],
-    ["SIN", sin_calculus(matrix)],
-    ["COSH", cosh_calculus(matrix)],
-    ["SINH", sinh_calculus(matrix)],
-]
-
 def errors_check(argv):
+    args = ["COS", "EXP", "SIN", "COSH", "SINH"]
     if (len(argv) == 1):
         exit(84)
     if (len(argv) == 2 and argv[1] == "-h"):
@@ -39,8 +32,8 @@ def errors_check(argv):
             exit(84)
         i += 1
     check = 0
-    for k in range(len(calcs)):
-        if (argv[1] == calcs[k][0]):
+    for k in range(len(args)):
+        if (argv[1] == args[k]):
             check = 1
     if (check == 0):
         exit(84)
@@ -58,7 +51,13 @@ def main(argv, matrix_len):
     
     arguments = retrieve_argument(argv)
     matrix = create_matrix_with_str_arg(int(matrix_len), int(matrix_len), arguments)
-    
+    calcs = [
+        ["COS", cos_calculus(matrix)],
+        ["EXP", exp_calculus(matrix)],
+        ["SIN", sin_calculus(matrix)],
+        ["COSH", cosh_calculus(matrix)],
+        ["SINH", sinh_calculus(matrix)],
+    ]
     for i in range(len(calcs)):
         if (argv[1] == calcs[i][0]):
             print_matrix(calcs[i][1])
