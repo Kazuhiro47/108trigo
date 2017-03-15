@@ -10,51 +10,58 @@ from src.cosinus import *
 from src.exponential import *
 from src.sinus import *
 
+calcs = [
+    ["COS", cos_calculus(matrix)],
+    ["EXP", exp_calculus(matrix)],
+    ["SIN", sin_calculus(matrix)],
+    ["COSH", cosh_calculus(matrix)],
+    ["SINH", sinh_calculus(matrix)],
+]
+
 def errors_check(argv):
-	if (len(argv) == 1):
-		exit(84)
-	if (len(argv) == 2 and argv[1] == "-h"):
-		man()
-		exit(0)
-	if (modf(sqrt(len(argv) - 2))[0] != 0):
-		exit(84)
-	try:
-		if (float(argv[1]) >= 0 or float(argv[1]) < 0):
-			exit(84)
-	except ValueError:
-		check = "ok"
-	i = 2
-	while (i < len(argv)):
-		try:
-			isnan(float(argv[i]))
-		except ValueError:
-			exit(84)
-		i += 1
-	return (sqrt(len(argv) - 2))
+    if (len(argv) == 1):
+        exit(84)
+    if (len(argv) == 2 and argv[1] == "-h"):
+        man()
+        exit(0)
+    if (modf(sqrt(len(argv) - 2))[0] != 0):
+        exit(84)
+    try:
+        if (float(argv[1]) >= 0 or float(argv[1]) < 0):
+            exit(84)
+    except ValueError:
+        check = "ok"
+    i = 2
+    while (i < len(argv)):
+        try:
+            isnan(float(argv[i]))
+        except ValueError:
+            exit(84)
+        i += 1
+    check = 0
+    for k in range(len(calcs)):
+        if (argv[1] == calcs[k][0]):
+            check = 1
+    if (check == 0):
+        exit(84)
+    return (sqrt(len(argv) - 2))
 
 def retrieve_argument(argv):
-	i = 2
-	str = []
-	while (i < len(argv)):
-		str.append(argv[i])
-		i += 1
-	return (str)
+    i = 2
+    str = []
+    while (i < len(argv)):
+        str.append(argv[i])
+        i += 1
+    return (str)
 
 def main(argv, matrix_len):
-
-	arguments = retrieve_argument(argv)
-	matrix = create_matrix_with_str_arg(int(matrix_len), int(matrix_len), arguments)
-	calcs = [
-		["COS", cos_calculus(matrix)],
-		["EXP", exp_calculus(matrix)],
-		["SIN", sin_calculus(matrix)],
-		["COSH", cosh_calculus(matrix)],
-		["SINH", sinh_calculus(matrix)],
-	]
-
-	for i in range(len(calcs)):
-		if (argv[1] == calcs[i][0]):
-			print_matrix(calcs[i][1])
+    
+    arguments = retrieve_argument(argv)
+    matrix = create_matrix_with_str_arg(int(matrix_len), int(matrix_len), arguments)
+    
+    for i in range(len(calcs)):
+        if (argv[1] == calcs[i][0]):
+            print_matrix(calcs[i][1])
 
 matrix_len = errors_check(argv)
 main(argv, matrix_len)
