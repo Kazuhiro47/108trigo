@@ -58,18 +58,17 @@ def main(operation, argument_matrix, progress):
     if (matrix == 84):
         return (84)
     calcs = [
-        ["COS", cos_calculus(matrix)],
-        ["EXP", exp_calculus(matrix)],
-        ["SIN", sin_calculus(matrix)],
-        ["COSH", cosh_calculus(matrix)],
-        ["SINH", sinh_calculus(matrix)],
-        ["INVERT1", inverted_fct_1(matrix)],
-        ["INVERT2", inverted_fct_2(matrix)],
-        ["LOG1", log_1(matrix)],
-        ["LOG2", log_2(matrix)]
+        ["COS", cos_calculus(matrix, progress)],
+        ["EXP", exp_calculus(matrix, progress)],
+        ["SIN", sin_calculus(matrix, progress)],
+        ["COSH", cosh_calculus(matrix, progress)],
+        ["SINH", sinh_calculus(matrix, progress)],
+        ["INVERT1", inverted_fct_1(matrix, progress)],
+        ["INVERT2", inverted_fct_2(matrix, progress)],
+        ["LOG1", log_1(matrix, progress)],
+        ["LOG2", log_2(matrix, progress)]
     ]
     
-    progress.setValue(15)
     for i in range(len(calcs)):
         if (operation == calcs[i][0]):
             return(calcs[i][1])
@@ -158,21 +157,18 @@ class Window(QtGui.QWidget):
         if ok and item:
             self.le.setText(item)
         operation[0] = item
-        self.progress.setValue(10)
 
     def get_argument(self):
         text, ok = QInputDialog.getText(self, 'Matrix input', 'Enter arguments')
         if ok:
             self.le1.setText(str(text))
         argument_matrix[0] = text
-        self.progress.setValue(10)
     
     def compute(self):
         if (operation[0] != 'init' and argument_matrix[0] != 'init'):
-            print("matrix arg:", operation)
-            print("operation:", argument_matrix)
+            print("matrix arg:", argument_matrix)
+            print("operation:", operation)
             matrix = main(operation[0], argument_matrix[0], self.progress)
-            self.progress.setValue(90)
             if (matrix == 84):
                 error_arguments()
                 return (84)
@@ -181,7 +177,6 @@ class Window(QtGui.QWidget):
             for i, row in enumerate(matrix):
                 for j, val in enumerate(row):
                     self.view_matrix.setItem(i, j, QtGui.QTableWidgetItem(str(precision(val))))
-            self.progress.setValue(100)
         else:
             error_msg()
 
