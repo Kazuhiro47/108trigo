@@ -17,6 +17,8 @@ def errors_check(argv):
     if (len(argv) == 2 and argv[1] == "-h"):
         man()
         exit(0)
+    if (len(argv) == 2):
+        exit(84)
     if (modf(sqrt(len(argv) - 2))[0] != 0):
         exit(84)
     try:

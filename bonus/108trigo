@@ -83,12 +83,12 @@ except AttributeError:
     def _fromUtf8(s):
         return s
         
-        #def help():
-        #help_msg = QMessageBox()
-        #msg.setIcon(QMessageBox.Warning)
-        #help_msg.setText('USAGE\n./108trigo fun a0 a1 a2....\n\nDESCRIPTION\n\t\tfun function to be applied, among at least "EXP", "COS", "SIN", "COSH" and "SINH"\t\tai  coeficients of the matrix')
-        #msg.setWindowTitle("Usage")
-        #msg.exec_()
+def help():
+    help_msg = QMessageBox()
+    help_msg.setIcon(QMessageBox.Information)
+    help_msg.setText('USAGE\n\nClick on "Choose trigo calculus"\n\nClick on "Enter matrix in a string"\nexample: "2 3 4 5" is a matrix of size 2,2 with 2, 3, 4 and 5 in the matrix\n\nClick "Compute"')
+    help_msg.setWindowTitle("Usage")
+    help_msg.exec_()
 
 def error_msg():
     msg = QMessageBox()
@@ -119,15 +119,20 @@ class Window(QtGui.QWidget):
         
         self.le = QLineEdit()
         layout.addRow(self.btn, self.le)
+        
         self.btn1 = QPushButton("Enter matrix in a string")
         self.btn1.clicked.connect(self.get_argument)
         
+        self.help_btn = QPushButton("Help")
+        self.help_btn.clicked.connect(self.help_button)
+        
         self.le1 = QLineEdit()
         layout.addRow(self.btn1, self.le1)
-        
+
         self.le2 = QLineEdit()
         self.setLayout(layout)
-        
+        layout.addRow(self.help_btn, self.le2)
+
         self.operate_btn = QPushButton("Compute")
         self.operate_btn.setDefault(True)
         self.operate_btn.clicked.connect(lambda: self.compute())
@@ -142,7 +147,10 @@ class Window(QtGui.QWidget):
         layout.addWidget(self.view_matrix)
 
         self.progress = QtGui.QProgressBar(self)
-        self.progress.setGeometry(13, 80, 160, 20)
+        self.progress.setGeometry(13, 110, 160, 20)
+    
+    def help_button(self):
+        help()
     
     def get_operation(self):
         items = ("COS", "EXP", "SIN", "COSH", "SINH", "INVERT1", "INVERT2", "LOG1", "LOG2")
